@@ -6,21 +6,21 @@ import main
 
 def user_iteration(member_list):
     members = member_list['members']
-    print(members)
-    for target, next_target in zip(members, members[1:]):
-        """
-        ignores certain users to avoid Dm'ing. 
-        UB43F512L is the bot
-        U938A515W is specious
-        This can be replaced with a while loop or 
-        exclusion through an if in block
-        """
+    check_list = list(members)
+    check_list.remove("UB43F512L")
+    """
+    ignores certain users to avoid Dm'ing. 
+    UB43F512L is the bot
+    U938A515W is specious
+    """
 
-        if target == "UB43F512L":
-            print(f"skipping {target}")
-        else:
+    for target in check_list:
+
+        user_target_list = list(check_list)
+        user_target_list.remove(target)
+        for user in user_target_list:
 
             main.sc.api_call("chat.postMessage", channel=target,
                              text=f"hey <@{target}>! here we glow! Say " +
-                             f"something nice about <@{next_target}>!",
+                             f"something nice about <@{user}>!",
                              as_user="true")
