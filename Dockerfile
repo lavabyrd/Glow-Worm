@@ -1,9 +1,9 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.6
 
-COPY ./app /app
+COPY ./ .
 
 RUN pip install pipenv
 
-RUN pipenv install --system --deploy
+RUN pipenv install --system --deploy --three
 
-CMD ["python", "main.py"]
+CMD ["python3", "main.py"]
