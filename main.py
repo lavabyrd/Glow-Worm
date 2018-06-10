@@ -22,7 +22,7 @@ sc_user = SlackClient(USER_TOKEN)
 # determine the site is up
 
 
-@app.route("/index")
+@app.route("/")
 def index():
     return render_template('index.html')
 
