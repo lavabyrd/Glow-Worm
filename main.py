@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, json, jsonify, make_response
+from flask import Flask, request, json, jsonify, make_response, render_template
 from slackclient import SlackClient
 # Allows pretty printing of json to console
 import json_format
@@ -17,6 +17,16 @@ app = Flask(__name__)
 # Global reference for the Slack Client tokens
 sc = SlackClient(BOT_TOKEN)
 sc_user = SlackClient(USER_TOKEN)
+
+# Points to the index page and just shows an easy way to
+# determine the site is up
+
+
+@app.route("/index")
+def index():
+    return render_template('index.html')
+
+# Endpoint for the slash command
 
 
 @app.route("/glow", methods=["POST"])
