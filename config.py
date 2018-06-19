@@ -17,6 +17,6 @@ class Config(object):
     CLIENT_SECRET = os.environ.get(
         "CLIENT_SECRET") or local_config.client_secret
     CELERY_BROKER_URL = os.environ.get(
-        "CELERY_BROKER_URL") or local_config.celery_broker_url
+        "REDIS_URL") or local_config.celery_broker_url
     CELERY_RESULT_BACKEND = os.environ.get(
-        "CELERY_RESULT_BACKEND") or local_config.celery_url_results
+        "REDIS_URL") or local_config.celery_url_results
