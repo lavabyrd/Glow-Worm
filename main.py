@@ -2,6 +2,10 @@ import os
 from flask import Flask, request, json, jsonify, make_response, render_template
 from slackclient import SlackClient
 # Allows pretty printing of json to console
+
+
+# from tasks import *
+
 import json_format
 import glow_logic
 
@@ -11,31 +15,38 @@ VERIFICATION_TOKEN = os.environ.get("GLOW_VERIFICATION_TOKEN")
 BOT_TOKEN = os.environ.get("GLOW_BOT_TOKEN")
 USER_TOKEN = os.environ.get("GLOW_USER_TOKEN")
 
+
 # Creation of the Flask app
 app = Flask(__name__)
+
+# app.config.update(
+#     CELERY_BROKER_URL='redis://localhost:6379',
+#     CELERY_RESULT_BACKEND='redis://localhost:6379'
+# )
+# celery = make_celery(app)
+
 
 # Global reference for the Slack Client tokens
 sc = SlackClient(BOT_TOKEN)
 sc_user = SlackClient(USER_TOKEN)
 
+
 # Points to the index page and just shows an easy way to
 # determine the site is up
-
-
 @app.route("/")
 def index():
+
     return render_template('index.html')
 
+
 # Endpoint for the slash command
-
-
 @app.route("/glow", methods=["POST"])
 def glow():
     payload = request.form.to_dict()
-    print(json_format.pretty_json(payload))
+    # print(json_format.pretty_json(payload))
     channel_id = payload["channel_id"]
     user_list = sc.api_call("conversations.members", channel=channel_id)
-    glow_logic.user_iteration(user_list)
+    glow_logic.user_iteration.delay(user_list)
     return make_response("starting the glow!", 200)
 
 
