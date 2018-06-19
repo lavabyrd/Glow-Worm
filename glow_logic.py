@@ -1,17 +1,16 @@
-from slackclient import SlackClient
 import os
-
 import main
-
+from slackclient import SlackClient
 from flask import Flask
-
 from tasks import make_celery
-app = Flask(__name__)
+from config import Config
 
-app.config.update(
-    CELERY_BROKER_URL='redis://localhost:6379',
-    CELERY_RESULT_BACKEND='redis://localhost:6379'
-)
+app = Flask(__name__)
+app.config.from_object(Config)
+
+b_token = app.config['BOT_TOKEN']
+u_token = app.config['USER_TOKEN']
+
 celery = make_celery(app)
 
 

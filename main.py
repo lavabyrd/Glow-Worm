@@ -1,41 +1,34 @@
 import os
-from flask import Flask, request, json, jsonify, make_response, render_template
-from slackclient import SlackClient
-# Allows pretty printing of json to console
-
-
-# from tasks import *
-
 import json_format
 import glow_logic
-
-# Addition of the tokens required. User_token may not be
-# needed here unless we want to kick a user from the channel
-VERIFICATION_TOKEN = os.environ.get("GLOW_VERIFICATION_TOKEN")
-BOT_TOKEN = os.environ.get("GLOW_BOT_TOKEN")
-USER_TOKEN = os.environ.get("GLOW_USER_TOKEN")
-
+from flask import Flask, request, json, jsonify, make_response, render_template
+from slackclient import SlackClient
+from config import Config
 
 # Creation of the Flask app
 app = Flask(__name__)
 
-# app.config.update(
-#     CELERY_BROKER_URL='redis://localhost:6379',
-#     CELERY_RESULT_BACKEND='redis://localhost:6379'
-# )
-# celery = make_celery(app)
+app.config.from_object(Config)
+
+# Addition of the tokens required. User_token may not be
+# needed here unless we want to kick a user from the channel
+b_token = app.config['BOT_TOKEN']
+u_token = app.config['USER_TOKEN']
+veri = app.config['VERIFICATION_TOKEN']
+oauth_scope = app.config['OAUTH_SCOPE']
+client_id = app.config['CLIENT_ID']
+client_secret = app.config['CLIENT_SECRET']
 
 
 # Global reference for the Slack Client tokens
-sc = SlackClient(BOT_TOKEN)
-sc_user = SlackClient(USER_TOKEN)
+sc = SlackClient(b_token)
+sc_user = SlackClient(u_token)
 
 
 # Points to the index page and just shows an easy way to
 # determine the site is up
 @app.route("/")
 def index():
-
     return render_template('index.html')
 
 
