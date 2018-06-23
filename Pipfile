@@ -8,6 +8,7 @@ slackclient = "*"
 flask = "*"
 celery = "*"
 redis = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

@@ -11,6 +11,7 @@ itsdangerous==0.24
 jinja2==2.10
 kombu==4.2.1
 markupsafe==1.0
+python-dotenv==0.8.2
 pytz==2018.4
 redis==2.10.6
 requests==2.19.1
