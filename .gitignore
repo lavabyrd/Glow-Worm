@@ -2,10 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.vscode/
 
 # Local files
 local_config.py
+dump.rdb
 
 
 # C extensions
