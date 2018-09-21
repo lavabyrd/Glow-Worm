@@ -14,3 +14,6 @@ Once the threaded reply is recieved for all users, it will send the full consoli
 This app is written in Python 3.6 and uses the Slackclient SDK to ensure ease of calling the api methods required.
 
 For more imformation please see https://api.slack.com
+
+## App starting
+In one terminal, run `redis-server`, in the second, go into the directory, into the `pipenv shell` and run `celery -E -A glow_logic.celery worker`. Finally, run `flask run` in another `pipenv shell` window. 
