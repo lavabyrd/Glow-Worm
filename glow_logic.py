@@ -1,5 +1,5 @@
 import os
-import main
+import app
 from slackclient import SlackClient
 from flask import Flask
 from tasks import make_celery
@@ -31,7 +31,7 @@ def user_iteration(member_list):
         user_target_list.remove(target)
         for user in user_target_list:
 
-            main.sc.api_call("chat.postMessage", channel=target,
+            app.sc.api_call("chat.postMessage", channel=target,
                              text=f"hey <@{target}>! here we glow! Say " +
                              f"something nice about <@{user}>!",
                              as_user="true")
