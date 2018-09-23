@@ -17,3 +17,6 @@ For more imformation please see https://api.slack.com
 
 ## App starting
 In one terminal, run `redis-server`, in the second, go into the directory, into the `pipenv shell` and run `celery -E -A glow_logic.celery worker`. Finally, run `flask run` in another `pipenv shell` window. 
+
+## Errors
+When you start the app after a fresh install, you'll get an error with celery not working with `async`. It's a bug with the current version of the package and can be fixed with https://github.com/celery/celery/issues/4849.
