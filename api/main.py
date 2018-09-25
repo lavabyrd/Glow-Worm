@@ -1,40 +1,18 @@
 import os
 import json_format
 import glow_logic
-from flask import Blueprint, Flask, request, json, jsonify, make_response, render_template
+from flask import Blueprint, Flask, request, json, jsonify, make_response
 from slackclient import SlackClient
 
-# from config import Config
 
 # Register blueprint
 api = Blueprint('api', __name__, template_folder='templates')
-
-# Creation of the Flask app
-# app = Flask(__name__)
-
-# app.config.from_object(Config)
-
-# Addition of the tokens required. User_token may not be
-# needed here unless we want to kick a user from the channel
-# b_token = app.config['BOT_TOKEN']
-# u_token = app.config['USER_TOKEN']
-# veri = app.config['VERIFICATION_TOKEN']
-# oauth_scope = app.config['OAUTH_SCOPE']
-# client_id = app.config['CLIENT_ID']
-# client_secret = app.config['CLIENT_SECRET']
 
 
 # Global reference for the Slack Client tokens
 
 b_token = os.environ.get('GLOW_BOT_TOKEN')
 sc = SlackClient(b_token)
-
-
-# Points to the index page and just shows an easy way to
-# determine the site is up
-@api.route("/test")
-def index():
-    return "testing"
 
 
 # Endpoint for the slash command
@@ -46,9 +24,3 @@ def glow():
     user_list = sc.api_call("conversations.members", channel=channel_id)
     glow_logic.user_iteration.delay(user_list)
     return make_response("starting the glow!", 200)
-
-
-# if __name__ == "__main__":
-#     port = int(os.environ.get("PORT", 5000))
-
-#     app.run(debug=False, host="0.0.0.0", port=port)

@@ -19,7 +19,7 @@ def user_iteration(member_list):
     b_token = os.environ.get('GLOW_BOT_TOKEN')
 
     sc = SlackClient(b_token)
-    print('step 1')
+
     members = member_list['members']
     check_list = list(members)
     check_list.remove("UB43F512L")
@@ -33,10 +33,10 @@ def user_iteration(member_list):
 
         user_target_list = list(check_list)
         user_target_list.remove(target)
-        print('step 2')
-        # for user in user_target_list:
 
-        #     sc.api_call("chat.postMessage", channel=target,
-        #                 text=f"hey <@{target}>! here we glow! Say " +
-        #                 f"something nice about <@{user}>!",
-        #                 as_user="true")
+        for user in user_target_list:
+
+            print(sc.api_call("chat.postMessage", channel=target,
+                              text=f"hey <@{target}>! here we glow! Say " +
+                              f"something nice about <@{user}>!",
+                              as_user="true"))
