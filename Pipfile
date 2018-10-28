@@ -8,6 +8,7 @@ slackclient = "*"
 flask = "*"
 python-dotenv = "*"
 responder = "*"
+gunicorn = "*"
 
 [dev-packages]
 pylint = "*"
